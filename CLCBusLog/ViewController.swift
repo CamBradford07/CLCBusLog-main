@@ -28,7 +28,6 @@ let div = Firestore.firestore().collection("busLog").document("info")
         print(signifier!)
         busView.layer.cornerRadius = 20
         editButton.layer.cornerRadius = 20
-        //fetch()
         busView.dataSource = self
         busView.delegate = self
         super.viewDidLoad()
@@ -87,9 +86,12 @@ let div = Firestore.firestore().collection("busLog").document("info")
                 }
             }
             
-            for spot in 0..<leftBusNumbers.count{
-                ViewController.busBuilder.append((leftBusTendency[spot], leftBusNumbers[spot], rightBusTendency[spot], rightBusNumbers[spot]))
+            if(leftBusNumbers.count == leftBusTendency.count){
+                for spot in 0..<leftBusTendency.count{
+                    ViewController.busBuilder.append((leftBusTendency[spot], leftBusNumbers[spot], rightBusTendency[spot], rightBusNumbers[spot]))
+                }
             }
+
             self.busView.reloadData()
             
           }
@@ -123,6 +125,7 @@ let div = Firestore.firestore().collection("busLog").document("info")
             var cur = (busTendancy.Null, "", busTendancy.Null, "")
             cell.busSlotA.layer.cornerRadius = 20
             cell.busSlotB.layer.cornerRadius = 20
+            print(indexPath.row)
             if indexPath.row < ViewController.mid + 1
             {
                 cur = ViewController.busBuilder[indexPath.row - 1]
